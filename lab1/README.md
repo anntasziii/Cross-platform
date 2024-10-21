@@ -2,16 +2,16 @@
 
 ### Для побудови проекту слід використовувати команду:
 ```
-dotnet msbuild build.proj /p:Solution=lab#1 /t:Build
+dotnet msbuild build.proj /p:Solution=lab1 /t:Build
 ```
 
-### Для побудови та запуску слід використовувати команду:
+### Для запуску слід використовувати команду:
 ```
 dotnet msbuild build.proj /p:Solution=lab1 /t:Run
 ```
 ### Для тестування застосунку слід використовувати команду:
 ```
-dotnet msbuild build.proj /p:Solution=lab1 /t:Build
+dotnet msbuild build.proj /p:Solution=lab1 /t:Test
 ```
 ## Варіант 32
 

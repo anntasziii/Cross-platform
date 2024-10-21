@@ -22,6 +22,8 @@ namespace Lab1.Tests
             yield return new object[] { "3\n10 20 30\n", 90 };
             yield return new object[] { "4\n1 2 3 4\n", 16 };
             yield return new object[] { "5\n5 5 5 5 5\n", 25 };
+            yield return new object[] { "10\n1 2 3 4 5 6 7 8 9 10\n", 100 };
+            yield return new object[] { "10\n10 9 8 7 6 5 4 3 2 1\n", 55 };
         }
 
         [Theory]
@@ -36,8 +38,7 @@ namespace Lab1.Tests
             try
             {
                 File.WriteAllText(inputPath, inputData);
-                Directory.SetCurrentDirectory(tempDir);
-                Program.Main();
+                Program.Main(new string[] { inputPath, outputPath });
 
                 Assert.True(File.Exists(outputPath), $"OUTPUT.TXT does not exist at {outputPath}");
                 string result = File.ReadAllText(outputPath);
@@ -56,13 +57,11 @@ namespace Lab1.Tests
             Directory.CreateDirectory(tempDir);
             string inputPath = Path.Combine(tempDir, "INPUT.TXT");
             string outputPath = Path.Combine(tempDir, "OUTPUT.TXT");
-            string originalDirectory = Directory.GetCurrentDirectory();
 
             try
             {
                 File.WriteAllText(inputPath, "5\n73 31 96 24 46\n");
-                Directory.SetCurrentDirectory(tempDir);
-                Program.Main();
+                Program.Main(new string[] { inputPath, outputPath });
 
                 Assert.True(File.Exists(outputPath), $"OUTPUT.TXT does not exist at {outputPath}");
                 string result = File.ReadAllText(outputPath);
@@ -70,7 +69,6 @@ namespace Lab1.Tests
             }
             finally
             {
-                Directory.SetCurrentDirectory(originalDirectory);
                 Directory.Delete(tempDir, true);
             }
         }
