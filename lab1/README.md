@@ -1,13 +1,17 @@
 # Лабораторна робота №1
-### Для побудови та запуску застосунку виконайте:
-```
-msbuild build.proj /p:LabName=lab#1 /t:Run
 
+### Для побудови проекту слід використовувати команду:
 ```
-### Для тестування застосунку:
+dotnet msbuild build.proj /p:Solution=lab#1 /t:Build
 ```
-msbuild build.proj /p:LabName=lab#1 /t:Test
 
+### Для побудови та запуску слід використовувати команду:
+```
+dotnet msbuild build.proj /p:Solution=lab1 /t:Run
+```
+### Для тестування застосунку слід використовувати команду:
+```
+dotnet msbuild build.proj /p:Solution=lab1 /t:Build
 ```
 ## Варіант 32
 
