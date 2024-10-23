@@ -2,9 +2,9 @@ using System;
 using System.IO;
 
 namespace lab2{
-class Program
+public class Program
     {
-        static void Main()
+        public static void Main(string[] args)
         {
             string[] input = File.ReadAllText("INPUT.TXT").Split();
             int M = int.Parse(input[0]);
