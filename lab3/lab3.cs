@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 
 namespace lab3{
-class Program
+public class Program
 {
     static void Main()
     {
@@ -42,7 +42,7 @@ class Program
         File.WriteAllText("OUTPUT.TXT", atariCount.ToString());
     }
 
-    static void DFS(char[,] board, bool[,] visited, int x, int y, List<(int, int)> group, HashSet<(int, int)> dame)
+    public static void DFS(char[,] board, bool[,] visited, int x, int y, List<(int, int)> group, HashSet<(int, int)> dame)
     {
         int N = board.GetLength(0);
         int[] dx = { -1, 1, 0, 0 };
@@ -62,14 +62,14 @@ class Program
                 int nx = cx + dx[i];
                 int ny = cy + dy[i];
 
-                if (nx >= 0 && nx < N && ny >= 0 && ny < N)
+                if (nx >= 0 && nx < N && ny >= 0 && ny < N)  // Перевірка меж дошки
                 {
-                    if (board[nx, ny] == 'B' && !visited[nx, ny])
+                    if (board[nx, ny] == 'B' && !visited[nx, ny])  // Чорний камінь
                     {
                         visited[nx, ny] = true;
                         stack.Push((nx, ny));
                     }
-                    else if (board[nx, ny] == '.')
+                    else if (board[nx, ny] == '.')  // Порожня клітина (dame)
                     {
                         dame.Add((nx, ny));
                     }
