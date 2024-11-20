@@ -2,10 +2,11 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
-
   <ItemGroup>
     <None Include="INPUT.TXT" />
     <None Include="OUTPUT.TXT" />
   </ItemGroup>
 </Project>
+

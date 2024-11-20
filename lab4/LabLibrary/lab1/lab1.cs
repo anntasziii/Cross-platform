@@ -6,10 +6,9 @@ namespace Lab1
 {
     public class Program
     {
-        public static void Main(string[] args)
+        // Метод для обчислення прибутку
+        public static int CalculateProfit(string inputFilePath, string outputFilePath)
         {
-            string inputFilePath = args.Length > 0 ? args[0] : "INPUT.TXT";
-            string outputFilePath = args.Length > 1 ? args[1] : "OUTPUT.TXT";
             string[] input = File.ReadAllLines(inputFilePath);
             int N = int.Parse(input[0]);
             int[] prices = input[1].Split(' ').Select(int.Parse).ToArray();
@@ -34,7 +33,21 @@ namespace Lab1
                     hairLength = 0;
                 }
             }
+
             File.WriteAllText(outputFilePath, totalProfit.ToString());
+            return totalProfit;
+        }
+
+        // Метод Main - точка входу в програму
+        public static void Main(string[] args)
+        {
+            // Шлях до вхідного та вихідного файлів
+            string inputFilePath = "INPUT.TXT";
+            string outputFilePath = "OUTPUT.TXT";
+
+            // Викликаємо метод для обчислення прибутку
+            int result = CalculateProfit(inputFilePath, outputFilePath);
+            Console.WriteLine($"Lab1 Result: {result}");
         }
     }
 }
