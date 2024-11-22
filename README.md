@@ -7,3 +7,4 @@
 3. [Лабораторна робота #3](https://github.com/anntasziii/Cross-platform/tree/master/lab3)
 4. [Лабораторна робота #4](https://github.com/anntasziii/Cross-platform/tree/master/lab4)
 5. [Лабораторна робота #5](https://github.com/anntasziii/Cross-platform/tree/master/lab5)
+6. [Лабораторна робота #6](https://github.com/anntasziii/Cross-platform/tree/master/lab6)
