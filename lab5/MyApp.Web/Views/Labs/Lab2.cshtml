@@ -1,0 +1,66 @@
+@model MyApp.Web.Models.Lab2ViewModel
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2>Лабораторна робота №@Model.TaskNumber</h2>
+            <h4>Варіант @Model.TaskVariant</h4>
+        </div>
+
+        <div class="card-body">
+            <!-- Опис завдання -->
+            <div class="mb-4">
+                <h5>Завдання:</h5>
+                <p>@Model.TaskDescription</p>
+
+                <h5>Вхідні дані:</h5>
+                <p>@Model.InputDescription</p>
+
+                <h5>Вихідні дані:</h5>
+                <p>@Model.OutputDescription</p>
+            </div>
+
+            <!-- Приклади -->
+            <div class="mb-4">
+                <h5>Приклади:</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>INPUT.TXT</th>
+                            <th>OUTPUT.TXT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var test in Model.TestCases)
+                        {
+                            <tr>
+                                <td><pre>@test.Input</pre></td>
+                                <td><pre>@test.Output</pre></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Форма завантаження -->
+            <div class="card">
+                <div class="card-body">
+                    <h5>Перевірка розв'язку:</h5>
+                    <form id="labForm" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Вхідні дані:</label>
+                            <textarea class="form-control" id="inputContent" name="Input" rows="4">@Model.Input</textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Результат:</label>
+                            <textarea class="form-control" id="outputContent" name="Output" rows="4" readonly>@Model.Output</textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Перевірити</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
