@@ -1,5 +1,12 @@
-public class RefMachineType
+using System.ComponentModel.DataAnnotations;
+
+namespace MyApp.Models
 {
-    public string MachineType { get; set; }
-    public string MachineTypeDescription { get; set; }
+    public class RefMachineType
+    {
+        [Key]
+        public int MachineType { get; set; }
+        public string MachineTypeDescription { get; set; }
+        public ICollection<CustomerMachine> CustomerMachines { get; set; }
+    }
 }

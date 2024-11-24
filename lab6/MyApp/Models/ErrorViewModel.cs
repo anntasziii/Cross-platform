@@ -1,4 +1,6 @@
 namespace MyApp.Models;
+using System.ComponentModel.DataAnnotations;
+
 
 public class ErrorViewModel
 {
