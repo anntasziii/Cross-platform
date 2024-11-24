@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyApp.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 public class CustomersController : Controller
 {
@@ -10,9 +13,15 @@ public class CustomersController : Controller
         _context = context;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        var customers = _context.Customers.ToList();
+        var customers = await _context.Customers
+                                       .Include(c => c.RefCustomerType)
+                                       .Include(c => c.EndUser)
+                                       .Include(c => c.Company)
+                                       .Include(c => c.CustomerMachines)
+                                       .ToListAsync();
+
         return View(customers);
     }
 
@@ -24,45 +33,54 @@ public class CustomersController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(Customer customer)
+    public async Task<IActionResult> Create(Customer customer)
     {
         if (ModelState.IsValid)
         {
             _context.Add(customer);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        ViewBag.CustomerTypes = _context.RefCustomerTypes.ToList();
+
+        ViewBag.CustomerTypes = await _context.RefCustomerTypes.ToListAsync();
         return View(customer);
     }
 
-    public IActionResult Details(int id)
+    public async Task<IActionResult> Details(int id)
     {
-        var customer = _context.Customers.Include(c => c.RefCustomerType)
-                                          .FirstOrDefault(c => c.Id == id);
+        var customer = await _context.Customers
+                                      .Include(c => c.RefCustomerType)
+                                      .Include(c => c.EndUser)
+                                      .Include(c => c.Company)
+                                      .Include(c => c.CustomerMachines)
+                                      .FirstOrDefaultAsync(c => c.CustomerId == id);
+
         if (customer == null)
         {
             return NotFound();
         }
+
         return View(customer);
     }
 
-    public IActionResult Edit(int id)
+    public async Task<IActionResult> Edit(int id)
     {
-        var customer = _context.Customers.FirstOrDefault(c => c.Id == id);
+        var customer = await _context.Customers
+                                      .FirstOrDefaultAsync(c => c.CustomerId == id);
         if (customer == null)
         {
             return NotFound();
         }
-        ViewBag.CustomerTypes = _context.RefCustomerTypes.ToList();
+
+        ViewBag.CustomerTypes = await _context.RefCustomerTypes.ToListAsync();
         return View(customer);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(int id, Customer customer)
+    public async Task<IActionResult> Edit(int id, Customer customer)
     {
-        if (id != customer.Id)
+        if (id != customer.CustomerId)
         {
             return NotFound();
         }
@@ -72,11 +90,11 @@ public class CustomersController : Controller
             try
             {
                 _context.Update(customer);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_context.Customers.Any(c => c.Id == id))
+                if (!await CustomerExists(id))
                 {
                     return NotFound();
                 }
@@ -87,7 +105,11 @@ public class CustomersController : Controller
             }
             return RedirectToAction(nameof(Index));
         }
-        ViewBag.CustomerTypes = _context.RefCustomerTypes.ToList();
+        ViewBag.CustomerTypes = await _context.RefCustomerTypes.ToListAsync();
         return View(customer);
+    }
+    private async Task<bool> CustomerExists(int id)
+    {
+        return await _context.Customers.AnyAsync(c => c.CustomerId == id);
     }
 }

@@ -5,6 +5,7 @@ namespace MyApp.Models
     public class Service
     {
         [Key]
+        public int Id { get; set; }
         public int ServiceTypeCode { get; set; }
         public int DistributorId { get; set; }
         public int ServiceVendorId { get; set; }

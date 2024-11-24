@@ -1,6 +1,8 @@
-using System.ComponentModel.DataAnnotations;
-namespace MyApp.Models{
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
+namespace MyApp.Models
+{
     public class Customer
     {
         public int CustomerId { get; set; }
