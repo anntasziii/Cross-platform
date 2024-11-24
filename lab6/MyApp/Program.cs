@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore; 
-using MyApp.Models; 
+using Microsoft.EntityFrameworkCore;
+using MyApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +7,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(
-        "server=localhost;database=lab6_kpp;user=root;password=root;",
+        builder.Configuration.GetConnectionString("DefaultConnection"),
         new MySqlServerVersion(new Version(8, 0, 21))
     ));
 
@@ -21,9 +21,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(
